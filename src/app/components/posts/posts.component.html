@@ -1,4 +1,10 @@
 <div class="container mt-5">
+  <ngx-spinner
+    bdColor = "rgba(51, 51, 51, 0.8)" size = "large"
+    color = "#fff"
+    type = "timer"
+  >
+  </ngx-spinner>
   <div class="row justify-content-center">
     <div class="col-6">
       <div class="card mb-3">
@@ -49,8 +55,8 @@
   </div>
   <!-- /.row -->
   <div class="row">
-    <div class="col-6 mb-3" *ngFor="let post of posts">
-      <div class="card">
+    <div class="col-12 mb-3" *ngFor="let post of posts">
+      <div class="card" [ngStyle]="{'background-color' : '#A4C8CC'}">
         <div class="card-body">
           <h5 class="card-title">{{ post.title }}</h5>
           <p class="card-text">{{ post.body }}</p>
@@ -59,8 +65,8 @@
           <div class="card-wrapper" *ngIf="post.isShow" >
             <div class="card comment mt-3" *ngFor="let comment of comments" >
               <div class="card-body" >
-                <h5 class="card-title">{{ comment.name || 'n/a' }}</h5>
-                <p class="card-text">{{ comment.body || 'n/a' }}</p>
+                <h5 class="card-title">{{ comment.name }}</h5>
+                <p class="card-text">{{ comment.body }}</p>
               </div>
               <!-- /.card-body -->
             </div>

@@ -1,0 +1,45 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title text-center">{{ formData.id ? 'Edit post' : 'Add post' }}</h5>
+    <form novalidate #form="ngForm">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          [(ngModel)]="formData.title"
+          name="title"
+          placeholder="Enter title"
+          #postTitle="ngModel"
+          [ngClass]="{'is-invalid': postTitle.errors && form.submitted}"
+          required
+        >
+        <div class="invalid-feedback" [hidden]="!postTitle.errors?.required">Title is required</div>
+      </div>
+      <!-- /.form-group -->
+      <div class="form-group">
+        <label for="body">Body</label>
+        <input
+          type="text"
+          class="form-control"
+          id="body"
+          [(ngModel)]="formData.body"
+          name="body"
+          placeholder="Enter body"
+          #postBody="ngModel"
+          [ngClass]="{'is-invalid': postBody.errors && form.submitted}"
+          required
+        >
+        <div class="invalid-feedback" [hidden]="!postBody.errors?.required">Body is required</div>
+      </div>
+      <!-- /.form-group -->
+      <button type="submit" class="btn btn-primary" *ngIf="!formData.id" (click)="onAddPost(form)">Add post</button>
+      <button class="btn btn-primary mr-3" *ngIf="formData.id" (click)="onEditPost(form)">Edit post</button>
+      <button class="btn btn-primary" *ngIf="formData.id" (click)="onCancel()">Cancel</button>
+    </form>
+    <!-- form -->
+  </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->

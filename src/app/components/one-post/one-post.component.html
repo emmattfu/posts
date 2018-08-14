@@ -1,0 +1,23 @@
+<div class="card" [ngClass]="{'border-primary': editPostId === onePost.id}">
+  <div class="card-body">
+    <h5 class="card-title">{{ onePost.title }}</h5>
+    <p class="card-text">{{ onePost.body }}</p>
+    <button type="button" class="btn btn-primary mr-3 btn-comment" (click)="getComments(onePost.id)">Comments</button>
+    <button type="button" class="btn btn-warning mr-3" (click)="onEdit(onePost)" *ngIf="!editPostId">Edit</button>
+    <button type="button" class="btn btn-warning mr-3" (click)="onEdit(onePost)" *ngIf="editPostId" (click)="onCancel()">Cancel </button>
+    <button type="button" class="btn btn-danger btn-delete" (click)="onDelete(onePost.id)">Delete</button>
+    <div class="card-wrapper" *ngIf="onePost.isShow" >
+      <div class="card comment mt-3" *ngFor="let comment of comments">
+        <div class="card-body">
+          <h5 class="card-title">{{ comment.name }}</h5>
+          <p class="card-text">{{ comment.body }}</p>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+    <!-- /.card-wrapper -->
+  </div>
+  <!-- /.card-body -->
+</div>
+<!-- /.card -->

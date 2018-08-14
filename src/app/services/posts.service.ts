@@ -3,17 +3,18 @@ import { Post } from "../models/Post";
 import { environment } from "../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs/internal/Observable";
-import { NgxSpinnerService } from "ngx-spinner";
+import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
   private apiUrl = environment.api_url;
+  private editTask: BehaviorSubject<Post> = new BehaviorSubject({title: '', body: '', userId: 1});
+  public editTaskEvent = this.editTask.asObservable();
 
   constructor(
    private http: HttpClient,
-   private spinner: NgxSpinnerService
   ) {
 
   }
@@ -28,5 +29,13 @@ export class PostsService {
 
   addPost(post: Post):Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/posts`, post);
+  }
+
+  editPost(post: Post):Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/posts/${post.id}`, post);
+  }
+
+  emitEditEvent(post: Post): void {
+    this.editTask.next(post);
   }
 }

@@ -6,79 +6,11 @@
   >
   </ngx-spinner>
   <div class="row justify-content-center">
-    <div class="col-6">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h5 class="card-title text-center">Post's box</h5>
-          <form novalidate (submit)="onSubmit(form)" #form="ngForm">
-            <div class="form-group">
-              <label for="title">Title</label>
-              <input
-                type="text"
-                class="form-control"
-                id="title"
-                [(ngModel)]="post.title"
-                name="title"
-                placeholder="Enter title"
-                #postTitle="ngModel"
-                [ngClass]="{'is-invalid': postTitle.errors && form.submitted}"
-                required
-              >
-              <div class="invalid-feedback" [hidden]="!postTitle.errors?.required">Title is required</div>
-            </div>
-            <!-- /.form-group -->
-            <div class="form-group">
-              <label for="body">Body</label>
-              <input
-                type="text"
-                class="form-control"
-                id="body"
-                [(ngModel)]="post.body"
-                name="body"
-                placeholder="Enter body"
-                #postBody="ngModel"
-                [ngClass]="{'is-invalid': postBody.errors && form.submitted}"
-                required
-              >
-              <div class="invalid-feedback" [hidden]="!postBody.errors?.required">Body is required</div>
-            </div>
-            <!-- /.form-group -->
-            <button type="submit" class="btn btn-primary">Add post</button>
-          </form>
-          <!-- form -->
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-    <!-- /.col-6 -->
+    <app-add-new-post-form class="col-6" (onAddNewPost)="onSubmit($event)" (onChangePost)="onChange($event)"></app-add-new-post-form>
   </div>
   <!-- /.row -->
   <div class="row">
-    <div class="col-12 mb-3" *ngFor="let post of posts">
-      <div class="card" [ngStyle]="{'background-color' : '#A4C8CC'}">
-        <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
-          <p class="card-text">{{ post.body }}</p>
-          <button type="button" class="btn btn-primary mr-3 btn-comment" (click)="showComments(post.id)">Comments</button>
-          <button type="button" class="btn btn-danger btn-delete" *ngIf="isAdmin" (click)="onDelete(post.id)">Delete</button>
-          <div class="card-wrapper" *ngIf="post.isShow" >
-            <div class="card comment mt-3" *ngFor="let comment of comments" >
-              <div class="card-body" >
-                <h5 class="card-title">{{ comment.name }}</h5>
-                <p class="card-text">{{ comment.body }}</p>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-          </div>
-          <!-- /.card-wrapper -->
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-    </div>
-    <!-- /.ool-6 -->
+    <app-one-post class="col col-12 mb-3" *ngFor="let post of posts" [post]="post" (editPost)="onEdit($event)" (deletePost)="onDelete($event)"></app-one-post>
   </div>
   <!-- /.row -->
 </div>
